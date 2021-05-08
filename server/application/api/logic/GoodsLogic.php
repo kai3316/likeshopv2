@@ -56,6 +56,8 @@ class GoodsLogic{
             $order['min_price'] = $get['price'];
         }
 
+        $order['sort'] = 'desc';
+        $order['id'] = 'desc';
 
         $goods_count = $goods
                     ->where($where)
