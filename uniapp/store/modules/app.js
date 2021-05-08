@@ -20,13 +20,13 @@ const state = {
 	token: Cache.get(TOKEN) || null,
 	cartNum: "",
 	//记录登录次数
-	loginNum: Cache.get(LOGIN_NUM) || 0
 };
 
 const mutations = {
 	LOGIN(state, opt) {
 		state.token = opt.token;
 		Cache.set(TOKEN, opt.token, 60 * 24 * 60 * 60);
+		this.dispatch('getUser')
 	},
 	LOGOUT(state) {
 		state.token = undefined;
@@ -34,11 +34,6 @@ const mutations = {
 	},
 	SETCARTNUM(state, num) {
 		state.cartNum = num
-	},
-	SETLOGINNUM(state, num) {
-		state.loginNum = num
-		Cache.set(LOGIN_NUM, num);
-
 	},
 	SETUSERINFO(state, user) {
 		state.userInfo = user

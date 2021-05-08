@@ -9,8 +9,8 @@
 			<view class="user-name mt20">
 				<open-data type="userNickName"></open-data>
 			</view>
-			<view class="title xxl mb20 bold">微信授权登录</view>
-			<button size="lg" class="white br60 row-center btn" open-type="getUserInfo" @getuserinfo="getUserInfo">
+			<view class="title xxl mt20 bold">微信授权登录</view>
+			<button size="lg" class="white br60 row-center btn" @click="mnpLoginFun">
 				<image class="mr10 image" src="/static/images/icon_wechat.png"></image>
 				<text>微信一键授权</text>
 			</button>
@@ -64,9 +64,9 @@
 			</view>
 			<view class="mb20 sm row">
 				已阅读并同意
-				<navigator class="primary" hover-class="none" url="/pages/server_explan/server_explan?type=0">《服务协议》</navigator>
+				<navigator class="primary" hover-class="none" url="/pages/bundle/server_explan/server_explan?type=0">《服务协议》</navigator>
 				和
-				<navigator class="primary" hover-class="none" url="/pages/server_explan/server_explan?type=1">《隐私协议》</navigator>
+				<navigator class="primary" hover-class="none" url="/pages/bundle/server_explan/server_explan?type=1">《隐私协议》</navigator>
 			</view>
 		</view>
 		<!--  #endif -->
@@ -74,10 +74,6 @@
 </template>
 
 <script>
-	import {
-		wxLogin,
-		getWxCode
-	} from '@/utils/login';
 	import {
 		mapMutations,
 		mapActions,
@@ -89,17 +85,19 @@
 		sendSms,
 		wxpLogin,
 		smsCodeLogin,
-		opLogin
+		opLogin,
+		authLogin
 	} from '@/api/app';
 	import {
 		inputInviteCode
 	} from '@/api/user'
 	import wechath5 from '@/utils/wechath5'
 	import {
-		isWeixinClient
+		isWeixinClient,
+		currentPage,
+		client
 	} from '@/utils/tools'
 	import {
-		client
 	} from '@/utils/tools'
 	import {
 		SMSType
@@ -108,6 +106,7 @@
 	import {
 		BACK_URL
 	} from '@/config/cachekey'
+	import {getWxCode, getUserProfile} from '@/utils/login'
 	const loginType = {
 		ACCOUNT_LOGIN: 0,
 		SMS_CODE_LOGIN: 1,
@@ -131,6 +130,7 @@
 		async onLoad(option) {
 			
 			// #ifdef H5
+			// H5微信登录
 			this.isWeixin = isWeixinClient()
 			if (this.isLogin) {
 				uni.switchTab({
@@ -150,40 +150,38 @@
 				}
 			}
 			// #endif
-            console.log(client, 'client')
+		},
+		onUnload() {
+			
 		},
 		methods: {
 			...mapMutations(['LOGIN']),
 			...mapActions(['getUser']),
-			async getUserInfo(e) {
-				if (!e.detail.userInfo) return;
+			countDownFinish() {
+				this.canSendSms = true;
+			},
+			// 小程序登录
+			async mnpLoginFun() {
+				const {userInfo: {avatarUrl, nickName, gender}} = await getUserProfile()
 				uni.showLoading({
 					title: '登录中...',
 					mask: true
 				});
-				let {
-					encryptedData: encrypted_data,
-					iv
-				} = e.detail;
-				const {
-					code,
-					data
-				} = await wxLogin({
-					encrypted_data,
-					iv
+				const wxCode = await getWxCode()
+				const {code, data, msg} = await authLogin({
+					code: wxCode,
+					nickname: nickName,
+					headimgurl: avatarUrl,
 				})
-				uni.hideLoading()
-				if (code == 1) {
+				if(code == 1) {
 					this.loginHandle(data)
-				} else {
+				}else {
 					this.$toast({
-						title: '登录失败，请稍后再试'
-					});
+						title: msg
+					})
 				}
 			},
-			countDownFinish() {
-				this.canSendSms = true;
-			},
+			// 账号登录
 			async loginFun() {
 				const {
 					account,
@@ -226,9 +224,10 @@
 					})
 				}
 			},
-			loginHandle(data) {
+			// 登录结果处理
+			async loginHandle(data) {
 				this.LOGIN(data)
-				this.getUser()
+				uni.hideLoading()
 				const inviteCode = Cache.get("INVITE_CODE")
 				if (inviteCode) {
 					inputInviteCode({
@@ -240,7 +239,13 @@
 				Cache.remove(BACK_URL)
 				//#endif
 				// #ifdef MP-WEIXIN  || APP-PLUS
-				uni.navigateBack();
+				uni.navigateBack({
+					success(){
+						// 刷新上一页
+						const {onLoad, options} = currentPage()
+						onLoad && onLoad(options)
+					}
+				})
 				//#endif
 				
 			},
@@ -251,6 +256,7 @@
 					this.loginType = loginType.ACCOUNT_LOGIN
 				}
 			},
+			// 发送验证码
 			$sendSms() {
 				if (this.canSendSms == false) {
 					return;
@@ -275,16 +281,21 @@
 					}
 				})
 			},
+			// app微信登录
 			async appWxLogin() {
 				uni.login({
 					provider:'weixin',
 					success: (res) => {
+						uni.showLoading({
+							title: '登录中...',
+							mask: true
+						});
 						const {openid,access_token,} = res.authResult
 						opLogin({
 							openid,
 							access_token
 						}).then(res => {
-							
+							uni.hideLoading()
 							if(res.code == 1) {
 								this.loginHandle(res.data)
 							}
@@ -318,15 +329,10 @@
 					border-radius: 50%;
 					border: 1px solid #eee;
 					overflow: hidden;
-
-
-					.user-name {
-						margin-bottom: 40rpx;
-						height: 40rpx;
-					}
-
 				}
-
+				.user-name {
+					height: 40rpx;
+				}
 				.image {
 					width: 50rpx;
 					height: 50rpx;

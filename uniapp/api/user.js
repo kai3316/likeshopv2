@@ -15,7 +15,7 @@
 // | Author: LikeShopTeam
 // +----------------------------------------------------------------------
 import request from '../utils/request'
-
+import{client} from '@/utils/tools'
 //个人中心
 export function getUser() {
     return request.get('user/center')
@@ -246,4 +246,11 @@ export function getWallet() {
 // 退出登录
 export function userLogout(data) {
     return request.post('account/logout', data)
+}
+
+
+//更新微信信息
+
+export function setWechatInfo(data) {
+    return request.post('user/setWechatInfo', data)
 }
