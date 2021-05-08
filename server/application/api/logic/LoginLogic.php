@@ -521,4 +521,154 @@ class LoginLogic extends LogicBase
         return self::dataSuccess('登录成功', $user_info);
     }
 
+    /**
+     * Notes: 新用户登录
+     * @param $post
+     * @return array
+     * @throws \think\Exception
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     * @throws \think\exception\PDOException
+     */
+    public static function authLogin($post)
+    {
+        try {
+            //通过code获取微信 openid
+            $response = self::getWechatResByCode($post);
+            $response['headimgurl'] = $post['headimgurl'] ?? '';
+            $response['nickname'] = $post['nickname'] ?? '';
+            //通过获取到的openID或unionid获取当前 系统 用户id
+            $user_id = self::getUserByWechatResponse($response);
+
+        } catch (Exception $e) {
+            return self::dataError('登录失败:' . $e->getMessage());
+        } catch (\think\Exception $e) {
+            return self::dataError('登录失败:' . $e->getMessage());
+        }
+
+        if (empty($user_id)) {
+            $user_info = UserServer::createUser($response, Client_::mnp);
+        } else {
+            $user_info = UserServer::updateUser($response, Client_::mnp, $user_id);
+        }
+
+        //验证用户信息
+        $check_res = self::checkUserInfo($user_info);
+        if (true !== $check_res) {
+            return self::dataError($check_res);
+        }
+
+        //创建会话
+        $user_info['token'] = self::createSession($user_info['id'], Client_::mnp);
+
+        unset($user_info['id'], $user_info['disable']);
+        return self::dataSuccess('登录成功', $user_info);
+    }
+
+    /**
+     * Notes: 根据code 获取微信信息(openid, unionid)
+     * @param $post
+     * @author 段誉(2021/4/19 16:52)
+     * @return array|\EasyWeChat\Kernel\Support\Collection|object|\Psr\Http\Message\ResponseInterface|string
+     * @throws Exception
+     * @throws \EasyWeChat\Kernel\Exceptions\InvalidConfigException
+     */
+    public static function getWechatResByCode($post)
+    {
+        $config = WeChatServer::getMnpConfig();
+        $app = Factory::miniProgram($config);
+        $response = $app->auth->session($post['code']);
+        if (!isset($response['openid']) || empty($response['openid'])) {
+            throw new Exception('获取openID失败');
+        }
+
+        return $response;
+    }
+
+    /**
+     * Notes: 检查用户信息
+     * @param $user_info
+     * @author 段誉(2021/4/19 16:54)
+     * @return bool|string
+     */
+    public static function checkUserInfo($user_info)
+    {
+        if (empty($user_info)) {
+            return '登录失败:user';
+        }
+
+        if ($user_info['disable']) {
+            return '该用户被禁用';
+        }
+
+        return true;
+    }
+
+    /**
+     * Notes: 旧用户登录
+     * @param $post
+     * @author 段誉(2021/4/19 16:57)
+     * @return array
+     * @throws \think\Exception
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     * @throws \think\exception\PDOException
+     */
+    public static function silentLogin($post)
+    {
+        try {
+            //通过code获取微信 openid
+            $response = self::getWechatResByCode($post);
+            //通过获取到的openID或unionid获取当前 系统 用户id
+            $user_id = self::getUserByWechatResponse($response);
+
+        } catch (Exception $e) {
+            return self::dataError('登录失败:' . $e->getMessage());
+        } catch (\think\Exception $e) {
+            return self::dataError('登录失败:' . $e->getMessage());
+        }
+
+        if (empty($user_id)) {
+            //系统中没有用户-调用authlogin接口生成新用户
+            return self::dataSuccess('', []);
+        } else {
+            $user_info = UserServer::updateUser($response, Client_::mnp, $user_id);
+        }
+
+        //验证用户信息
+        $check_res = self::checkUserInfo($user_info);
+        if (true !== $check_res) {
+            return self::dataError($check_res);
+        }
+
+        //创建会话
+        $user_info['token'] = self::createSession($user_info['id'], Client_::mnp);
+
+        unset($user_info['id'], $user_info['disable']);
+        return self::dataSuccess('登录成功', $user_info);
+    }
+
+    /**
+     * Notes: 根据微信返回信息查询当前用户id
+     * @param $response
+     * @author 段誉(2021/4/19 16:52)
+     * @return mixed
+     */
+    public static function getUserByWechatResponse($response)
+    {
+        $user_id = Db::name('user_auth au')
+            ->join('user u', 'au.user_id=u.id')
+            ->where(['u.del' => 0])
+            ->where(function ($query) use ($response) {
+                $query->whereOr(['au.openid' => $response['openid']]);
+                if(isset($response['unionid']) && !empty($response['unionid'])){
+                    $query->whereOr(['au.unionid' => $response['unionid']]);
+                }
+            })
+            ->value('user_id');
+        return $user_id;
+    }
+
 }
