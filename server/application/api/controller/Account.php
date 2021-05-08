@@ -26,7 +26,7 @@ use app\common\server\ConfigServer;
 class Account extends ApiBase
 {
 
-    public $like_not_need_login = ['register','applogin', 'login', 'mnplogin', 'codeurl', 'oalogin', 'oplogin','logout','smslogin', 'uinAppLogin'];
+    public $like_not_need_login = ['register','applogin', 'login', 'mnplogin', 'codeurl', 'oalogin', 'oplogin','logout','smslogin', 'uinAppLogin', 'authLogin', 'silentLogin'];
 
 
     /**
@@ -222,4 +222,36 @@ class Account extends ApiBase
         $this->_success($data['msg'], $data['data'], $data['code']);
     }
 
+    //2021-0419  小程序新版登录调整
+
+    /**
+     * Notes: 小程序登录(旧系统用户,返回用户信息,否则返回空)
+     * @author 段誉(2021/4/19 16:50)
+     */
+    public function silentLogin()
+    {
+        $post = $this->request->post();
+        if (empty($post['code'])) {
+            $this->_error('参数缺失');
+        }
+        $data = LoginLogic::silentLogin($post);
+        $this->_success($data['msg'], $data['data'], $data['code'], $data['show']);
+    }
+
+
+    /**
+     * Notes: 小程序登录(新用户登录->需要提交昵称和头像参数)
+     */
+    public function authLogin()
+    {
+        $post = $this->request->post();
+        if (empty($post['code'])
+            || empty($post['headimgurl'])
+            || empty($post['nickname']))
+        {
+            $this->_error('参数缺失');
+        }
+        $data = LoginLogic::authLogin($post);
+        $this->_success($data['msg'], $data['data'], $data['code'], $data['show']);
+    }
 }

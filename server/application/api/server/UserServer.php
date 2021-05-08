@@ -42,23 +42,10 @@ class UserServer
     {
         $user_info = [];
         try {
-
-            //不同授权返回信息key名不一样，统一处理
-            switch ($client) {
-                case Client_::mnp:
-                    $openid = $response['openId'];
-                    $unionid = $response['unionId'] ?? '';
-                    $avatar_url = $response['avatarUrl'];
-                    $nickname = $response['nickName'];
-                    break;
-                case Client_::oa:
-                case Client_::ios:
-                case Client_::android:
-                    $openid = $response['openid'];
-                    $unionid = $response['unionid'] ?? '';
-                    $avatar_url = $response['headimgurl'];
-                    $nickname = $response['nickname'];
-            }
+            $openid = $response['openid'];
+            $unionid = $response['unionid'] ?? '';
+            $avatar_url = $response['headimgurl'] ?? '';
+            $nickname = $response['nickname'] ?? '';
 
             Db::startTrans();
             $time = time();
@@ -121,23 +108,10 @@ class UserServer
     {
         $time = time();
         try {
-
-            switch ($client) {
-                case Client_::mnp:
-                    $openid = $response['openId'];
-                    $unionid = $response['unionId'] ?? '';
-                    $avatar_url = $response['avatarUrl'];
-                    $nickname = $response['nickName'];
-                    break;
-                case Client_::oa:
-                case Client_::ios:
-                case Client_::android:
-                    $openid = $response['openid'];
-                    $unionid = $response['unionid'] ?? '';
-                    $avatar_url = $response['headimgurl'];
-                    $nickname = $response['nickname'];
-                    break;
-            }
+            $openid = $response['openid'];
+            $unionid = $response['unionid'] ?? '';
+            $avatar_url = $response['headimgurl'] ?? '';
+            $nickname = $response['nickname'] ?? '';
 
             Db::startTrans();
 

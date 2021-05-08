@@ -5,9 +5,10 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>安装</title>
+        <title>LikeShop单商户安装</title>
         <link rel="stylesheet" type="text/css" href="https://www.layuicdn.com/layui/css/layui.css"/>
         <link rel="stylesheet" type="text/css" href="./css/mounted.css"/>
+        <link rel="shortcut icon" href="./favicon.ico"/>
     </head>
     <body>
     <div class="header">
@@ -34,7 +35,7 @@
                                 LikeShop100%开源免费商用电商系统授权协议
                             </div>
                             <div class="content">
-                                <h2>版权所有(c)2021，LikeShop团队保留所有权利。</h2>
+                                <h2>版权所有(c)2019-<?=date('Y')?>，LikeShop团队保留所有权利。</h2>
                                 <p class="mt16">
                                     感谢你信任并选择LikeShop100%开源免费商用电商系统，LikeShop100%开源免费商用电商系统由广州好象科技有限公司（www.likemarket.net）原创研发并取得软件著作权，100%开放源码，无加密，自主可控，方便二次开发。</p>
                                 <p class="mt6">为了正确并合法的使用本软件，请你在使用前务必阅读清楚下面的协议条款：</p>
@@ -184,7 +185,7 @@
                                             <tbody>
                                             <tr>
                                                 <td>PHP版本</td>
-                                                <td>大于7.1</td>
+                                                <td>大于7.2</td>
                                                 <?php echo $modelInstall->correctOrFail($modelInstall->checkPHP()) ?>
                                                 <td>建议使用PHP7.2.4版本</td>
                                             </tr>
@@ -461,7 +462,7 @@
         </div>
     </div>
     <footer>
-        Copyright © 2010-2020 广州好象科技有限公司 粤ICP备16101670号-2
+        Copyright © 2019-<?=date('Y')?> 广州好象科技有限公司 粤ICP备16101670号-2
     </footer>
     <script src="https://www.layuicdn.com/layui/layui.js"></script>
     <?php if (count($successTables) > 0): ?>
