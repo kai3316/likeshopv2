@@ -381,6 +381,9 @@ class OrderLogic extends LogicBase
                 throw new Exception($good['goods_name'] . '库存不足');
             }
 
+            $total_pay_price = ($good['goods_price'] * $good['goods_num']) - ($good['discount_price'] ?? 0);
+            $total_pay_price = $total_pay_price <= 0 ? 0 : $total_pay_price;
+
             $goods_data[] = [
                 'order_id' => $order_id,
                 'goods_id' => $good['goods_id'],
@@ -389,7 +392,7 @@ class OrderLogic extends LogicBase
                 'goods_num' => $good['goods_num'],
                 'goods_price' => $good['goods_price'],
                 'total_price' => $good['goods_price'] * $good['goods_num'],
-                'total_pay_price' => ($good['goods_price'] * $good['goods_num']) - $good['discount_price'],//实际支付商品金额(扣除优惠金额)
+                'total_pay_price' => $total_pay_price,//实际支付商品金额(扣除优惠金额)
                 'spec_value_ids' => $good['spec_value_ids'],
                 'discount_price' => $good['discount_price'],
                 'goods_info'   => json_encode($good, JSON_UNESCAPED_UNICODE),
