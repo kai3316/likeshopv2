@@ -203,12 +203,13 @@ class OrderRefundLogic
 
 
     /**
-     * Notes:售后退款更新订单或订单商品状态
+     * Notes: 售后退款更新订单或订单商品状态
      * @param $order
      * @param $order_goods_id
-     * @author 段誉(2021/1/28 15:22)
+     * @param $admin_id
+     * @author 段誉(2021/5/10 17:09)
      */
-    public static function afterSaleRefundUpdate($order, $order_goods_id)
+    public static function afterSaleRefundUpdate($order, $order_goods_id, $admin_id)
     {
         $order_goods = OrderGoods::get(['id' => $order_goods_id]);
         $order_goods->refund_status = OrderGoods::REFUND_STATUS_SUCCESS;//退款成功
@@ -220,13 +221,38 @@ class OrderRefundLogic
         $order->refund_amount += $order_goods['total_pay_price'];//退款金额 + 以前的退款金额
         $order->refund_status = 1;//退款状态：0-未退款；1-部分退款；2-全部退款
 
-        //退款金额等于订单应付金额时为全部退款
-        if ($order->refund_amount == $order['order_amount']) {
+        //如果订单商品已全部退款更新订单为已关闭
+        if (self::checkOrderGoods($order['id'])) {
+            $order->order_status = CommonOrder::STATUS_CLOSE;
             $order->refund_status = 2;
+
+            OrderLogLogic::record(
+                OrderLog::TYPE_SHOP,
+                OrderLog::SYSTEM_CANCEL_ORDER,
+                $order['id'],
+                $admin_id,
+                OrderLog::SYSTEM_CANCEL_ORDER
+            );
         }
         $order->save();
     }
 
+
+    //订单内商品是否已全部
+    public static function checkOrderGoods($order_id)
+    {
+        $order_goods = OrderGoods::where('order_id', $order_id)->select();
+        if (empty($order_goods)) {
+            return false;
+        }
+
+        foreach ($order_goods as $item) {
+            if ($item['refund_status'] != OrderGoods::REFUND_STATUS_SUCCESS) {
+                return false;
+            }
+        }
+        return true;
+    }
 
 
     /**

@@ -391,7 +391,7 @@ class AfterSaleLogic
                 AfterSaleLog::REFUND_SUCCESS
             );
             //更新订单和订单商品状态
-            OrderRefundLogic::afterSaleRefundUpdate($order, $order_goods['id']);
+            OrderRefundLogic::afterSaleRefundUpdate($order, $order_goods['id'], $admin_id);
             //订单退款
             OrderRefundLogic::refund($order, $order['order_amount'], $order_goods['total_pay_price']);
 
