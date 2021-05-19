@@ -37,6 +37,7 @@ class GoodsBrandLogic
         $lists = Db::name('goods_brand')
             ->where($where)
             ->page($get['page'],$get['limit'])
+            ->order(['sort' => 'desc', 'id'=>'desc'])
             ->select();
 
         return ['count' => $count,'list' => $lists];
