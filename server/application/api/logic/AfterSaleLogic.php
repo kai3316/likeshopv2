@@ -40,12 +40,12 @@ class AfterSaleLogic extends LogicBase
     {
         $where = [];
         $where[] = ['o.user_id', '=', $user_id];
-        $where[] = ['o.order_status', 'in', [Order::STATUS_WAIT_RECEIVE, Order::STATUS_FINISH]];
 
         $data = $result = [];
         switch ($type) {
             case 'normal':
                 $where[] = ['g.refund_status', '=', OrderGoods::REFUND_STATUS_NO];
+                $where[] = ['o.order_status', 'in', [Order::STATUS_WAIT_RECEIVE, Order::STATUS_FINISH]];
                 $order = new Order();
                 $count = $order->alias('o')
                     ->field('o.id,o.confirm_take_time,o.order_status')
@@ -108,10 +108,12 @@ class AfterSaleLogic extends LogicBase
                 break;
             case 'apply':
                 $where[] = ['g.refund_status', 'in', [OrderGoods::REFUND_STATUS_APPLY, OrderGoods::REFUND_STATUS_WAIT]];
+                $where[] = ['o.order_status', 'in', [Order::STATUS_WAIT_RECEIVE, Order::STATUS_FINISH]];
                 $where[] = ['a.del', '=', 0];
                 break;
             case 'finish':
                 $where[] = ['g.refund_status', '=', OrderGoods::REFUND_STATUS_SUCCESS];
+                $where[] = ['o.order_status', 'in', [Order::STATUS_WAIT_RECEIVE, Order::STATUS_FINISH, Order::STATUS_CLOSE]];
                 $where[] = ['a.del', '=', 0];
                 break;
         }
