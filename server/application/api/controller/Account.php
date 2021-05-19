@@ -245,10 +245,7 @@ class Account extends ApiBase
     public function authLogin()
     {
         $post = $this->request->post();
-        if (empty($post['code'])
-            || empty($post['headimgurl'])
-            || empty($post['nickname']))
-        {
+        if (empty($post['code']) || empty($post['nickname'])) {
             $this->_error('参数缺失');
         }
         $data = LoginLogic::authLogin($post);
