@@ -19,12 +19,10 @@
 
 namespace app\common\behavior;
 
-use app\api\logic\DistributionLogic;
+
 use app\api\model\Order;
-use app\common\logic\IntegralLogic;
 use app\common\logic\OrderGoodsLogic;
 use app\common\logic\OrderLogLogic;
-use app\common\model\AccountLog;
 use app\common\model\OrderLog;
 
 
