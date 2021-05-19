@@ -92,6 +92,11 @@ class Coupon extends Validate{
         if($value && $value == $data['send_time_end']){
             return '发放开始时间和结束时间不能相同';
         }
+
+        if ($data['send_time_end'] < $value) {
+            return '发放结束时间不能小于发放开始时间';
+        }
+
         return true;
     }
 
