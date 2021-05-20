@@ -71,12 +71,12 @@
 					<view style="margin-left: 15px">{{userInfo.mobile}}</view>
 				</view>
 				<view class="modify-row row" v-else>
-					<view style="width: 71px;">手机号</view>
-					<input v-model="new_mobile" placeholder="请输入绑定手机号" />
+					<view style="width: 150rpx;">手机号</view>
+					<u-input v-model="new_mobile" placeholder="请输入绑定手机号" />
 				</view>
 				<view class="modify-row row">
-					<view style="width: 71px;">验证码</view>
-					<input v-model="smsCode" style="padding-left: 5px;width: 130px;" placeholder="请输入验证码" />
+					<view style="width: 150rpx;">验证码</view>
+					<u-input v-model="smsCode" style="width: 130px;" placeholder="请输入验证码" />
 					<view class="send-code-btn nr row-center" @click="$sendSms">
 						<u-verification-code :keep-running="true" ref="uCode" @change="codeChange" unique-key="page-b">
 						</u-verification-code>
@@ -84,8 +84,8 @@
 					</view>
 				</view>
 				<view class="modify-row row" v-if="userInfo.mobile">
-					<view style="width: 71px;">新手机号</view>
-					<input v-model="new_mobile" placeholder="请输入新的手机号码" />
+					<view style="width: 150rpx;">新手机号</view>
+					<u-input v-model="new_mobile" placeholder="请输入新的手机号码" />
 				</view>
 				<view class="primary mt10">{{userInfo.mobile ? '更改' : '绑定'}}手机号码成功后，您的账号将会变更为该设置号码</view>
 				<view class="btn bg-primary white row-center" @click="$changeUserMobile">确定</view>
@@ -96,7 +96,7 @@
 				<view class="title xl">修改用户名</view>
 				<view class="modify-row row">
 					<view style="width: 71px;">新昵称</view>
-					<input v-model="newNickname" placeholder="请输入新的昵称" />
+					<u-input v-model="newNickname" placeholder="请输入新的昵称" />
 				</view>
 				<view class="btn bg-primary white row-center" @click="changeNameConfirm">确定</view>
 			</view>
@@ -109,8 +109,8 @@
 					<view style="margin-left: 15px">{{userInfo.mobile}}</view>
 				</view>
 				<view class="modify-row row">
-					<view style="width: 142rpx;">验证码</view>
-					<input v-model="smsCode" style="padding-left: 10rpx;width: 260rpx;" placeholder="请输入验证码" />
+					<view style="width: 150rpx;">验证码</view>
+					<u-input v-model="smsCode" style="width: 260rpx;" placeholder="请输入验证码" />
 					<view class="send-code-btn nr row-center" @click="$sendSms">
 						<u-verification-code :keep-running="true" ref="uCode" @change="codeChange" unique-key="page-a">
 						</u-verification-code>
@@ -118,12 +118,12 @@
 					</view>
 				</view>
 				<view class="modify-row row">
-					<view style="width: 71px;">设置密码</view>
-					<input type="password" v-model="pwd" placeholder="请输入新密码" />
+					<view style="width: 150rpx;">设置密码</view>
+					<u-input type="password" v-model="pwd" placeholder="请输入新密码" />
 				</view>
 				<view class="modify-row row">
-					<view style="width: 71px;">确认密码</view>
-					<input type="password" v-model="comfirmPwd" placeholder="再次输入新密码确认" />
+					<view style="width: 150rpx;">确认密码</view>
+					<u-input type="password" v-model="comfirmPwd" placeholder="再次输入新密码确认" />
 				</view>
 				<view class="btn bg-primary white row-center" @click="$forgetPwd">确定</view>
 			</view>
@@ -528,7 +528,7 @@
 			padding-left: 30rpx;
 			padding-right: 30rpx;
 			padding-bottom: 30rpx;
-			width: 580rpx;
+			width: 620rpx;
 			border-radius: 30rpx;
 			background-color: $-color-white;
 
