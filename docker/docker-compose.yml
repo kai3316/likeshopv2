@@ -42,8 +42,8 @@ services:
 
 
   php7.2.4:
-    container_name: likeshop-php7.2.4
-    image: indexlin/likeshop-php7.2.4:1.0
+    container_name: likeshop-php7.2.4-fpm
+    image: likeshop/php:7.2.4-fpm
     restart: always
     working_dir: /server
     volumes:
@@ -54,6 +54,7 @@ services:
     ports:
       - "9004:9000"
     #user: "1000:1000"
+
 
 
   mysql:
