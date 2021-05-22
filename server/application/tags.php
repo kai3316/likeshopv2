@@ -53,5 +53,9 @@ return [
     //消息通知
     'notice' => [
         'app\\common\\behavior\\Notice'
-    ]
+    ],
+    //取消订单后操作
+    'cancel_order' => [
+        'app\\common\\behavior\\CancelOrder'
+    ],
 ];

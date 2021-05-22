@@ -190,9 +190,11 @@
 					type
 				} = option;
 				this.type = type;
-				getRect('.header-wrap').then(res => {
-					this.headerH = res.height
-				});
+				this.$nextTick(() => {
+					getRect('.header-wrap').then(res => {
+						this.headerH = res.height
+					});
+				})
 
 				if (id) {
 					uni.setNavigationBarTitle({

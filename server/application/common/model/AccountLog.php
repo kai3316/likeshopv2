@@ -48,6 +48,7 @@ class AccountLog extends Model{
     const admin_reduce_growth   = 301;
     const sign_give_growth      = 302;
     const recharge_give_growth  = 303;
+    const order_give_growth     = 304;//下单赠送成长值
 
     const withdraw_dec_earnings     = 400;//提现扣减佣金
     const withdraw_back_earnings    = 401;//提现被拒绝返回佣金
@@ -62,7 +63,7 @@ class AccountLog extends Model{
         , self::order_deduction_integral,self::register_add_integral,self::cancel_order_refund_integral,
     ];
     const growth_change = [     //成长值变动类型
-        self::admin_add_growth,self::admin_reduce_growth,self::recharge_give_growth,self::sign_give_growth
+        self::admin_add_growth,self::admin_reduce_growth,self::recharge_give_growth,self::sign_give_growth,self::order_give_growth
     ];
 
     const earnings_change = [   //佣金变动
@@ -94,6 +95,7 @@ class AccountLog extends Model{
             self::withdraw_back_earnings        => '拒绝提现返还佣金',
             self::distribution_inc_earnings     => '订单结算获得佣金',
             self::cancel_order_refund_integral  => '取消订单退回积分',
+            self::order_give_growth             => '下单赠送成长值',
         ];
         if($from === true){
             return $desc;

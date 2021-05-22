@@ -69,6 +69,7 @@ class PayNotifyLogic
         if ($growth_ratio > 0) {
             $able_get_growth = floor($order['order_amount'] / $growth_ratio);
             $user->user_growth = ['inc', $able_get_growth];
+            AccountLogLogic::AccountRecord($order['user_id'], $able_get_growth, 1, AccountLog::order_give_growth, '', $order['id'], $order_sn);
         }
         $user->save();
 
@@ -153,8 +154,6 @@ class PayNotifyLogic
         $total_integral > 0 && AccountLogLogic::AccountRecord($user->id,$total_integral,1, AccountLog::recharge_give_integral);
         //记录成长值
         $order['give_growth'] > 0 &&AccountLogLogic::AccountRecord($user->id,$order['give_growth'],1, AccountLog::recharge_give_growth);
-        UserLevelLogic::updateUserLevel($user->id);
-
     }
 
 }

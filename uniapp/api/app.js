@@ -2,11 +2,15 @@ import request from '@/utils/request'
 import wechatH5 from '@/utils/wechath5'
 import {client} from '@/utils/tools'
 
-//小程序登录
-export function mnpLogin(data) {
-	return request.post('account/mnpLogin', data);
+//小程序授权登录
+export function authLogin(data) {
+	return request.post('account/authLogin', data);
 }
-
+//小程序静默登录
+export function silentLogin(data) {
+	return request.post('account/silentLogin', data);
+}
+   
 // app登录
 export function opLogin(data) {
 	return request.post('account/uinAppLogin', {...data, client});
@@ -92,4 +96,14 @@ export function getConfig() {
 //客服
 export function getService() {
     return request.get("service/lists")
+}
+
+// 获取隐私政策
+export function getPrivatePolicy() {
+    return request.get("policy/privacy")
+}
+
+// 获取服务协议
+export function getServerProto() {
+    return request.get("policy/service")
 }

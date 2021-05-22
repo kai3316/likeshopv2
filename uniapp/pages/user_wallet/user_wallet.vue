@@ -32,10 +32,6 @@
                 热门活动
             </view>
             <view class="activity-header row">
-                <navigator hover-class="none" url="/pages/user_sign/user_sign" class="activity-header-left">
-                    <view class="lg" style="font-weight: bold;">签到领积分</view>
-                    <view class="xs">赚积分抵现金</view>
-                </navigator>
                 <navigator hover-class="none" url="/pages/user_getcoupon/user_getcoupon" class="activity-header-right ml20">
                     <view class="lg" style="font-weight:bold;">领取优惠券</view>
                     <view class="xs">满减享优惠</view>

@@ -215,6 +215,12 @@
 		    "style": {
 		        "navigationBarTitleText": "联系客服"
 		    }
+		},
+		{
+			"path": "pages/webview/webview",
+			"style": {
+				"navigationBarTitleText": ""
+			}
 		}
     ],
 	"tabBar": {

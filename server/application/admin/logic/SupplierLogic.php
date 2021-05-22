@@ -106,6 +106,7 @@ class SupplierLogic{
     public static function getSupplierList(){
         $list = Db::name('supplier')
                 ->field('id,name')
+                ->where(['del' => 0])
                 ->select();
         return $list;
     }

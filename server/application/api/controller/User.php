@@ -115,4 +115,22 @@ class User extends ApiBase{
         $info = UserLogic::myWallet($this->user_id);
         $this->_success('获取成功',$info);
     }
+
+    /**
+     * Notes: 更新微信的用户信息
+     * @author 段誉(2021/4/7 15:28)
+     */
+    public function setWechatInfo()
+    {
+        $data = $this->request->post();
+        $check = $this->validate($data, 'app\api\validate\SetWechatUser');
+        if (true !== $check) {
+            $this->_error($check);
+        }
+        $res = UserLogic::updateWechatInfo($this->user_id, $data);
+        if (true === $res) {
+            $this->_success('操作成功');
+        }
+        $this->_error('操作失败');
+    }
 }

@@ -92,7 +92,7 @@
 							});
 						} else {
 							uni.navigateTo({
-								url: link + paramsToStr(args) 
+								url: link + paramsToStr(params) 
 							});
 						}
 						break;

@@ -79,6 +79,10 @@ class AccountLogLogic{
                 'source'     => AccountLog::recharge_give_growth,
                 'name'       => '充值赠送成长值',
             ],
+            [
+                'source'     => AccountLog::order_give_growth,
+                'name'       => '下单赠送成长值',
+            ]
         ];
         return $list;
 

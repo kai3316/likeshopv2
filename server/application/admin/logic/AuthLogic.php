@@ -124,9 +124,11 @@ class AuthLogic
      */
     public static function addMenu($post)
     {
-        $level = self::getParent($post['pid']);
-        if ($level >= 3) {
-            return '菜单不允许超出三级';
+        if ($post['type'] == 1) {
+            $level = self::getParent($post['pid']);
+            if ($level >= 3) {
+                return '菜单不允许超出三级';
+            }
         }
 
         $data = [
@@ -174,9 +176,11 @@ class AuthLogic
      */
     public static function updateMenu($post)
     {
-        $level = self::getParent($post['pid']);
-        if ($level >= 3) {
-            return '菜单不允许超出三级';
+        if ($post['type'] == 1) {
+            $level = self::getParent($post['pid']);
+            if ($level >= 3) {
+                return '菜单不允许超出三级';
+            }
         }
 
         $data = [

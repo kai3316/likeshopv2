@@ -46,9 +46,11 @@ export default {
   watch: {
     list: {
       handler: function () {
-        getRect(".goods-like", false, this).then(res => {
-          this.rectWidth = res.width;
-        });
+        this.$nextTick(() => {
+          getRect(".goods-like", false, this).then(res => {
+            this.rectWidth = res.width;
+          });
+        })
       },
       immediate: true,
       deep: true

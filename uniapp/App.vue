@@ -19,13 +19,9 @@
 			console.log("onLaunch:####", options);
 			// 获取配置
 			this.getConfigFun()
-			if (this.isLogin) {
+			// if (this.isLogin) {
 				this.getUser()
-			}
-			//更新登录次数
-			//#ifdef MP-WEIXIN
-			this.SETLOGINNUM(0)
-			//#endif
+			// }
 			//获取系统信息
 			this.getSystemInfo()
 
@@ -37,7 +33,7 @@
 			console.log('App Hide')
 		},
 		methods: {
-			...mapMutations(['SETLOGINNUM', 'SETCONFIG']),
+			...mapMutations(['SETCONFIG']),
 			...mapActions(['getUser']),
 			getSystemInfo() {
 				uni.getSystemInfo({
