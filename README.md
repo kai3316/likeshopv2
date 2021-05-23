@@ -7,8 +7,8 @@
 
 <div align="center">
 
-[![star](https://gitee.com/likemarket/likeshopv2/badge/star.svg?theme=dark)](https://www.likemarket.net)
-[![fork](https://gitee.com/likemarket/likeshopv2/badge/fork.svg?theme=gray)](https://www.likemarket.net)
+[![star](https://gitee.com/likeshop_gitee/likeshop/badge/star.svg?theme=dark)](https://www.likemarket.net)
+[![fork](https://gitee.com/likeshop_gitee/likeshop/badge/fork.svg?theme=gray)](https://www.likemarket.net)
 [![PHP Version](https://img.shields.io/badge/php-%3E%3D7.2-8892BF.svg)](https://www.likemarket.net)
 [![License](https://img.shields.io/badge/license-Apache2.0-success.svg)](https://www.likemarket.net)
 
@@ -18,7 +18,7 @@
 </p>
 
 <p align="center">    
-    <a target="_blank" href="https://gitee.com/likemarket/likeshopv2/tree/2.0.9/">点击这里切换为历史版本-原生小程序、原生vue H5页面、React Native苹果安卓app版本</a>
+    <a target="_blank" href="https://gitee.com/likeshop_gitee/likeshop/tree/2.0.9/">点击这里切换为历史版本-原生小程序、原生vue H5页面、React Native苹果安卓app版本</a>
 </p>
 
 
