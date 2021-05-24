@@ -87,7 +87,7 @@
                                 </p>
                                 <br><br>
                                 <p class="mt6">
-                                    LikeShop开源地址：https://gitee.com/likemarket/likeshopv2
+                                    LikeShop开源地址：https://gitee.com/likeshop_gitee/likeshop
                                 </p>
                                 <p class="mt6">
                                     LikeShop官方网站：https://www.likemarket.net
