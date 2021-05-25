@@ -516,16 +516,16 @@ class OrderLogic extends LogicBase
     }
 
 
-
     /**
      * Notes: 订单详情
      * @param $order_id
-     * @author 段誉(2021/1/30 14:46)
+     * @param $user_id
+     * @author 段誉(2021/5/25 14:16)
      * @return Order|array
      */
-    public static function getOrderDetail($order_id)
+    public static function getOrderDetail($order_id, $user_id)
     {
-        $order = Order::get(['del' => 0, 'id' => $order_id], ['orderGoods']);
+        $order = Order::get(['del' => 0, 'id' => $order_id, 'user_id' => $user_id], ['orderGoods']);
         if (!$order) {
             return [];
         }

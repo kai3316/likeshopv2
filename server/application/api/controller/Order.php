@@ -75,7 +75,7 @@ class Order extends ApiBase
         if (!$order_id) {
             $this->_error('请选择订单');
         }
-        $order_detail = OrderLogic::getOrderDetail($order_id);
+        $order_detail = OrderLogic::getOrderDetail($order_id, $this->user_id);
         if (!$order_detail) {
             $this->_error('订单不存在了!', '');
         }
