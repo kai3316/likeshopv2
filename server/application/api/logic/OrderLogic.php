@@ -240,11 +240,10 @@ class OrderLogic extends LogicBase
         $field = 'i.id as item_id,g.id as goods_id,g.name as goods_name,g.status,g.del,g.image,i.stock,
         g.free_shipping_type,g.free_shipping,g.free_shipping_template_id,g.image, i.image as spec_image,
         i.spec_value_str,i.spec_value_ids,i.price as goods_price,i.image as spec_image,i.volume,
-        i.weight,g.third_category_id';
+        i.weight,g.first_category_id,g.second_category_id,g.third_category_id';
 
         $goods = Db::name('goods g')
             ->join('goods_item i', 'g.id = i.goods_id')
-            ->join('goods_category c', 'c.id = g.third_category_id')
             ->where('i.id', 'in', $item_ids)
             ->column($field, 'i.id');
 
