@@ -2,7 +2,7 @@
 ![头图.png](https://resource.likemarket.net/gitee/toutu.png)
 
 ## likeshop「品牌介绍」
-ikeshop团队拥有多年项目研发经验，专注于打造新时代100%开源的革命性电商系统，感谢关注点击star~
+ikeshop团队拥有多年项目研发经验，专注于打造新时代100%开源的革命性电商系统，感谢关注点击star～
 > 🏓 -likeshop通俗易懂的代码结构，极易二次开发。丰富的电商项目实践经验、精良的UI界面，成就优秀的用户体验。
 >
 > ⚽ -likeshop后续将会推出社区团购、知识付费等产品，力争打造国内开源领域独树一帜的100%开源电商系列解决方案
@@ -147,18 +147,18 @@ likeshop深知手册的重要性，为此我们愿意投入时间为大家提供
 #### 阿里云服务器
 | 入门级配置|初级配置 |中级配置|企业级配置|
 |  :--- | :--- | :--- | :--- |
-|CPU：1核<br>内存：2G<br>带宽：1~5M <br>云盘：40~100G <br>1年价格：￥99<br>3年价格：￥297  | CPU：2核<br>内存：4G<br>带宽：1~10M <br>云盘：40~100G <br>1年价格：￥244<br>3年价格：￥565 |  CPU：4核<br>内存：8G<br>带宽：1~10M <br>云盘：40~100G <br>1年价格：￥598<br>3年价格：￥1495 | CPU：8核<br>内存：16G<br>带宽：1~10M <br>云盘：40~100G <br>1年价格：￥1897 <br>3年价格：￥4879
+|CPU：1核<br>内存：2G<br>带宽：1～5M <br>云盘：40～100G <br>1年价格：￥99<br>3年价格：￥297  | CPU：2核<br>内存：4G<br>带宽：1～10M <br>云盘：40～100G <br>1年价格：￥244<br>3年价格：￥565 |  CPU：4核<br>内存：8G<br>带宽：1～10M <br>云盘：40～100G <br>1年价格：￥598<br>3年价格：￥1495 | CPU：8核<br>内存：16G<br>带宽：1～10M <br>云盘：40～100G <br>1年价格：￥1897 <br>3年价格：￥4879
 |[618年中钜惠大促](https://www.aliyun.com/activity/618/2021?userCode=cvswwj8k)|[新人优惠](https://www.aliyun.com/1111/new?userCode=cvswwj8k)|[爆款特惠](https://www.aliyun.com/activity/daily/bestoffer?userCode=cvswwj8k) |[老用户优惠](https://www.aliyun.com/activity/daily/bestoffer?userCode=cvswwj8k)|
 
 #### 腾讯云服务器
 | 入门级配置|初级配置 |中级配置|企业级配置|
 |  :--- | :--- | :--- | :--- |
-|CPU：1核<br>内存：2G<br>带宽：1M <br>云盘：50G <br>1年价格：￥93<br>3年价格：￥328  | CPU：2核<br>内存：4G<br>带宽：1~10M <br>云盘：50GB <br>1年价格：￥803<br>3年价格：￥2067 |  CPU：4核<br>内存：8G<br>带宽：1~10M <br>云盘：40~100G <br>1年价格：￥1350<br>3年价格：￥3471 | CPU：8核<br>内存：16G<br>带宽：1~10M <br>云盘：40~100G <br>1年价格：￥2511 <br>3年价格：￥6457
+|CPU：1核<br>内存：2G<br>带宽：1M <br>云盘：50G <br>1年价格：￥93<br>3年价格：￥328  | CPU：2核<br>内存：4G<br>带宽：1～10M <br>云盘：50GB <br>1年价格：￥803<br>3年价格：￥2067 |  CPU：4核<br>内存：8G<br>带宽：1～10M <br>云盘：40～100G <br>1年价格：￥1350<br>3年价格：￥3471 | CPU：8核<br>内存：16G<br>带宽：1～10M <br>云盘：40～100G <br>1年价格：￥2511 <br>3年价格：￥6457
 |[2021年618云上Go](https://curl.qcloud.com/3dkLjQwR)|[新客专属福利](https://curl.qcloud.com/pD62VbaW)|[爆款特惠](https://curl.qcloud.com/mkwiZjsW) |[企业特惠](https://curl.qcloud.com/8liI3Cyx)|
 具体配置，点击以上链接获取。
 
 #### 配置推荐
-* 服务器镜像（系统）推荐：CentOS7.2~7.9
+* 服务器镜像（系统）推荐：CentOS7.2～7.9
 * 配置推荐：内存2G以上、带宽4M以上、其他配置项根据项目规模选择。
 * 服务器型号：根据需求选择，所有ECS服务器型号都适合常规项目使用。
 
