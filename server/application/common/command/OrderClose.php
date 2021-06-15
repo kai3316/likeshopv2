@@ -43,6 +43,10 @@ class OrderClose extends Command{
         $order_cancel_time = ConfigServer::get('trading','order_cancel', 30) * 60;
         $now = time();
 
+        if ($order_cancel_time == 0) {
+            return false;
+        }
+
         $order = new Order();
         $where[] = ['order_status','=',\app\common\model\Order::STATUS_WAIT_PAY];
         $where[] = ['pay_status','=',Pay::UNPAID];
