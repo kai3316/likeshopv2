@@ -33,12 +33,6 @@ class Login
      */
     public function handle($request, \Closure $next)
     {
-
-        //系统拦截强制下线
-        if (session('admin_info') && (LoginServer::isLogin(session('admin_info.id'))) == false) {
-            LoginLogic::logout(session('admin_info.id'));
-        }
-
         //已登录的访问登录页
         if (session('admin_info') && !$this->isNotNeedLogin($request)) {
             return $next($request);
