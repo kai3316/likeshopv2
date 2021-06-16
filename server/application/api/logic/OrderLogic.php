@@ -85,12 +85,12 @@ class OrderLogic extends LogicBase
             //运费
             $total_shipping_price = FreightLogic::calculateFreight($goods_lists, $user_address);
             //订单金额
-            $total_amount = $total_goods_price + $total_shipping_price;
+            $total_amount = $total_goods_price;
             //订单应付金额
-            $order_amount = $total_amount;
+            $order_amount = $total_goods_price;
 
             //使用优惠券
-            if (isset($post['coupon_id'])){
+            if (isset($post['coupon_id'])) {
                 $discount_amount_data = self::calculateDiscountAmount($goods_lists, $post['coupon_id']);//订单优惠金额
                 $discount_amount = $discount_amount_data['total_discount'];
                 $goods_lists = $discount_amount_data['goods'];
@@ -100,6 +100,9 @@ class OrderLogic extends LogicBase
             if ($order_amount <= 0){
                 $order_amount = 0;
             }
+
+            $total_amount += $total_shipping_price;
+            $order_amount += $total_shipping_price;
 
             $result = [
                 'order_type' => $order_type,
@@ -166,11 +169,17 @@ class OrderLogic extends LogicBase
 
             $discount = ($good['goods_price'] * $good['goods_num']) / $total_goods_price * $coupon['money'];
             $discount = round($discount, 2);
+            if ($discount > $good['goods_price']) {
+                $discount = $good['goods_price'];
+            }
             $good['discount_price'] = $discount;//每个商品优惠的金额
 
             //用于判断当前是否为最后一个商品
             if (($check_num + 1) == $goods_count){
                 $discount = $coupon['money'] - $total_discount;
+                if ($discount > $good['goods_price']) {
+                    $discount = $good['goods_price'];
+                }
             }
 
             $check_num += 1;
