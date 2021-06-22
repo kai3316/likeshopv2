@@ -182,7 +182,7 @@ likeshop深知手册的重要性，为此我们愿意投入时间为大家提供
 ├─server                     服务端根目录（管理后台、接口）
 │  ├─application             应用目录 
 │  │  ├─admin                管理后台
-│  │  ├─application          服务端接口
+│  │  ├─api                  服务端接口
 │  ├─public                  WEB目录（对外访问目录）      
 │  │  ├─index.php            入口文件 
 │  │  ├─mobile               已编译的H5代码目录（上线运行）
